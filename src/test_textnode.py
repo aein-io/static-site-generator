@@ -1,6 +1,6 @@
 import unittest
 
-from textnode import TextNode, TextType, text_node_to_html
+from textnode import TextNode, TextType, text_node_to_html_node
 from htmlnode import LeafNode
 
 
@@ -37,10 +37,10 @@ class TestTextNode(unittest.TestCase):
         )
 
 
-class TestTextNodeToHTML(unittest.TestCase):
+class TestTextNodeToHTMLNode(unittest.TestCase):
     def test_text_node_to_html(self):
         text_node = TextNode("This is a text node", TextType.TEXT)
-        html_node = text_node_to_html(text_node)
+        html_node = text_node_to_html_node(text_node)
         node = LeafNode(None, "This is a text node",)
         self.assertEqual(
             repr(node), repr(html_node)
@@ -49,7 +49,7 @@ class TestTextNodeToHTML(unittest.TestCase):
     def test_text_node_to_html_link(self):
         text_node = TextNode("This is a text node", TextType.LINK,
                              "https://www.boot.dev")
-        html_node = text_node_to_html(text_node)
+        html_node = text_node_to_html_node(text_node)
         node = LeafNode("a", "This is a text node", {
                         "href": "https://www.boot.dev"})
         self.assertEqual(
