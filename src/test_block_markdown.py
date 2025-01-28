@@ -1,5 +1,5 @@
 import unittest
-from block_markdown import markdown_to_blocks, block_to_block_type, markdown_to_html_node
+from block_markdown import markdown_to_blocks, block_to_block_type, markdown_to_html_node, extract_title
 
 
 class TestMarkdownToBlocks(unittest.TestCase):
@@ -221,6 +221,27 @@ code
             html,
             "<div><h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><h5>Heading 5</h5><h6>Heading 6</h6><p>####### Heading 7</p></div>"
         )
+
+
+class ExtractTitle(unittest.TestCase):
+
+    def test_title(self):
+        markdown = """
+        # Hello
+
+        This has a title
+        """
+        title = extract_title(markdown)
+        self.assertEqual(
+            title, "Hello"
+        )
+
+    def test_no_title(self):
+        markdown = """
+        I am but a humble paragraph
+        """
+        with self.assertRaises(Exception):
+            extract_title(markdown)
 
 
 if __name__ == "__main__":
