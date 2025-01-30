@@ -2,6 +2,11 @@ import os
 import shutil
 from generate_content import generate_pages_recursive
 
+dir_path_static = "./static"
+dir_path_public = "./public"
+dir_path_content = "./content"
+template_path = "./template.html"
+
 
 def copy_static_files(src_dir, dest_dir):
     if os.path.exists(dest_dir):
@@ -24,9 +29,9 @@ def copy_static_files(src_dir, dest_dir):
 
 
 def main():
-    copy_static_files("static", "public")
+    copy_static_files(dir_path_static, dir_path_public)
     generate_pages_recursive(
-        "content", "template.html", "public")
+        dir_path_content, template_path, dir_path_public)
 
 
 if __name__ == "__main__":
