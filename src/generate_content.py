@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from block_markdown import markdown_to_html_node, extract_title, markdown_to_blocks, block_to_block_type
+from block_markdown import markdown_to_html_node, markdown_to_blocks, block_to_block_type
 
 
 def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
@@ -10,11 +10,11 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
         content_path = os.path.join(dir_path_content, item)
         dest_path = os.path.join(dest_dir_path, item)
 
-        if content_path.is_dir():
-            generate_pages_recursive(content_path, template_path, dest_path)
-        elif content_path.suffix == ".md":
+        if os.path.isfile(content_path):
             dest_path = Path(dest_path).with_suffix(".html")
             generate_page(content_path, template_path, dest_path)
+        else:
+            generate_pages_recursive(content_path, template_path, dest_path)
 
 
 def generate_page(from_path, template_path, dest_path):
